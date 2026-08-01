@@ -1,6 +1,17 @@
 const express = require("express");
+const cors = require("cors");
 
 const app = express();
+
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      // ضع رابط الفرونت عند النشر هنا لاحقًا
+    ],
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 
