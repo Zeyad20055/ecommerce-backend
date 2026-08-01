@@ -3,36 +3,32 @@ const cors = require("cors");
 
 const app = express();
 
-
 // Middleware
 app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://your-frontend-domain.vercel.app"
+      "https://your-frontend-domain.vercel.app",
     ],
-    credentials: true
+    credentials: true,
   })
 );
 
 app.use(express.json());
 
-
 // Routes
-const productRoutes = require("./routes/product.routes");
-const userRoutes = require("./routes/user.routes");
+const productRoutes = require("./routes/productRoutes");
+const authRoutes = require("./routes/authRoutes");
 
 app.use("/api/products", productRoutes);
-app.use("/api/users", userRoutes);
-
+app.use("/api/users", authRoutes);
 
 // Test API
 app.get("/", (req, res) => {
   res.json({
     success: true,
-    message: "E-Commerce Dashboard API is running"
+    message: "E-Commerce Dashboard API is running",
   });
 });
-
 
 module.exports = app;
