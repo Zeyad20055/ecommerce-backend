@@ -7,7 +7,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      // ضع رابط الفرونت عند النشر هنا لاحقًا
+      "http://localhost:3000"
     ],
     credentials: true,
   })
@@ -15,14 +15,11 @@ app.use(
 
 app.use(express.json());
 
-
-// Routes
 const productRoutes = require("./routes/productRoutes");
 const authRoutes = require("./routes/authRoutes");
 
 app.use("/api/products", productRoutes);
 app.use("/api/auth", authRoutes);
-
 
 app.get("/", (req, res) => {
   res.json({
@@ -30,6 +27,5 @@ app.get("/", (req, res) => {
     message: "E-Commerce Dashboard API is running"
   });
 });
-
 
 module.exports = app;
