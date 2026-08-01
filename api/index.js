@@ -13,11 +13,12 @@ module.exports = async (req, res) => {
         return app(req, res);
 
     } catch (error) {
-        console.error("Vercel Error:", error);
+        console.error("VERCEL FUNCTION ERROR:", error);
 
         return res.status(500).json({
             success: false,
             message: error.message,
+            stack: error.stack,
         });
     }
 };
