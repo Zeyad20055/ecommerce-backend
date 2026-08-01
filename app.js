@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 
 const app = express();
 
@@ -15,11 +16,19 @@ app.use(
 
 app.use(express.json());
 
+// Serve uploaded images
+app.use(
+  "/uploads",
+  express.static(path.join(__dirname, "uploads"))
+);
+
+
 const productRoutes = require("./routes/productRoutes");
 const authRoutes = require("./routes/authRoutes");
 
 app.use("/api/products", productRoutes);
 app.use("/api/auth", authRoutes);
+
 
 app.get("/", (req, res) => {
   res.json({
