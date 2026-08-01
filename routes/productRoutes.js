@@ -10,17 +10,20 @@ const {
   getProductStats,
 } = require("../controllers/productController");
 
+
 const {
   productValidation,
   productUpdateValidation,
 } = require("../validations/productValidation");
+
 
 const validate = require("../middleware/validate");
 const protect = require("../middleware/auth");
 const adminOnly = require("../middleware/adminOnly");
 const upload = require("../middleware/upload");
 
-// Helper: make file upload optional
+
+// Optional image upload
 const optionalUpload = (req, res, next) => {
   upload.single("image")(req, res, (err) => {
     if (err) return next(err);
@@ -28,10 +31,28 @@ const optionalUpload = (req, res, next) => {
   });
 };
 
-router.get("/stats/summary", protect, adminOnly, getProductStats);
 
-router.get("/", getProducts);
-router.get("/:id", getProductById);
+// Routes
+
+router.get(
+  "/stats/summary",
+  protect,
+  adminOnly,
+  getProductStats
+);
+
+
+router.get(
+  "/",
+  getProducts
+);
+
+
+router.get(
+  "/:id",
+  getProductById
+);
+
 
 router.post(
   "/",
@@ -43,6 +64,7 @@ router.post(
   createProduct
 );
 
+
 router.put(
   "/:id",
   protect,
@@ -53,6 +75,13 @@ router.put(
   updateProduct
 );
 
-router.delete("/:id", protect, adminOnly, deleteProduct);
 
-module.exports = router;  
+router.delete(
+  "/:id",
+  protect,
+  adminOnly,
+  deleteProduct
+);
+
+
+module.exports = router;
